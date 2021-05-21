@@ -1,8 +1,11 @@
 import {Route, Redirect} from "react-router-dom";
-import {useAppState} from "../AppContext";
+import {useProfile} from "../context/ProfileContext";
+
 
 const PrivateRoute = props => {
-    const profile = useAppState(state => state.profile);
+
+    const {profile} = useProfile()
+
     if (profile === null) {
         return <Redirect to="/"/>;
     } else {
