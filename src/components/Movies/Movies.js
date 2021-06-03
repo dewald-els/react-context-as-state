@@ -1,14 +1,33 @@
-import {useAppState} from "../../AppContext";
+import {useEffect} from "react";
+import {fetchMovies} from "./MoviesAPI";
+import {useMovies} from "../../context/MoviesContext";
+import {useUiLoading} from "../../context/UiLoadingContext";
+
 const Movies = () => {
 
     console.log('Movies.render()');
-    const movies = useAppState(state => state.movies);
-    const uiLoading = useAppState(state => state.uiLoading);
+
+    const {movies, setMovies} = useMovies();
+    const {uiLoading, setUiLoading} = useUiLoading();
+
+    useEffect(() => {
+        setUiLoading(true);
+        fetchMovies()
+            .then(response => {
+                setMovies(response.data);
+            })
+            .catch(error => {
+
+            })
+            .finally(() => {
+                setUiLoading(false);
+            });
+    }, [setUiLoading, setMovies])
 
     return (
         <ul>
-            { uiLoading && <p>Loading your movies...</p> }
-            {movies.map(m => <li key={m.id}>{m.title}</li>)}
+            {uiLoading && <p>Loading your movies...</p>}
+            {movies.map(movie => <li key={movie.id}>{movie.title}</li>)}
         </ul>
     )
 }

@@ -1,18 +1,18 @@
-import {useAppState} from "../../AppContext";
+import {useProfile} from "../../context/ProfileContext";
 
 const Profile = () => {
 
     console.log('Profile.render()')
 
-    const profile = useAppState(state => state.profile);
+    const {profile} = useProfile();
 
     return (
         <main>
             <h1>Profile</h1>
-            {
-                <h4>{ profile.name }</h4>
+            {profile &&
+            <p>Welcome, {profile.username}</p>
             }
         </main>
     )
 }
-export default Profile
+export default Profile;

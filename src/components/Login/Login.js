@@ -1,21 +1,21 @@
-import {useDispatch} from "../../AppContext";
+import {useHistory} from 'react-router-dom'
+import {useProfile} from "../../context/ProfileContext";
 
 const Login = () => {
 
-    // Get dispatch from AppContext
-    const dispatch = useDispatch();
+    console.log('Login.render()')
+    const {setProfile} = useProfile();
+    const history = useHistory();
 
+    // Handler for Button CLick
     const onLoginClick = () => {
-        dispatch({
-            profile: {
-                name: 'Bird Person',
-            }
-        });
+        setProfile({username: 'birdperson'});
+        history.push('/movies');
     }
 
     return (
         <main>
-            <button onClick={ onLoginClick }>Login</button>
+            <button type="button" onClick={onLoginClick}>Login</button>
         </main>
     )
 }
