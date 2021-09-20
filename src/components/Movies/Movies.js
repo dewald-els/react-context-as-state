@@ -26,7 +26,7 @@ const Movies = () => {
 
     return (
         <ul>
-            {uiLoading && <p>Loading your movies...</p>}
+            {uiLoading && <li>Loading your movies...</li>}
             {movies.map(movie => <li key={movie.id}>{movie.title}</li>)}
         </ul>
     )
